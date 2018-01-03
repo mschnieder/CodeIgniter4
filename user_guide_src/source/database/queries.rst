@@ -64,13 +64,11 @@ the following::
 
 	$db->prefixTable('tablename'); // outputs prefix_tablename
 
-
 If for any reason you would like to change the prefix programatically
 without needing to create a new connection, you can use this method::
 
 	$db->setPrefix('newprefix');
 	$db->prefixTable('tablename'); // outputs newprefix_tablename
-
 
 **********************
 Protecting identifiers
@@ -93,7 +91,6 @@ have a prefix specified in your database config file. To enable the
 prefixing set TRUE (boolean) via the second parameter::
 
 	$db->protectIdentifiers('table_name', TRUE);
-
 
 ****************
 Escaping Queries
@@ -133,7 +130,6 @@ this:
 	yourself, it cannot automatically add the ``ESCAPE '!'``
 	condition for you, and so you'll have to manually do that.
 
-
 **************
 Query Bindings
 **************
@@ -168,12 +164,14 @@ Instead of using the question mark to mark the location of the bound values,
 you can name the bindings, allowing the keys of the values passed in to match
 placeholders in the query::
 
-        $sql = "SELECT * FROM some_table WHERE id = :id AND status = :status AND author = :name";
+        $sql = "SELECT * FROM some_table WHERE id = :id: AND status = :status: AND author = :name:";
         $db->query($sql, [
                 'id'     => 3,
                 'status' => 'live',
                 'name'   => 'Rick'
         ]);
+
+.. note:: Each name in the query MUST be surrounded by colons.
 
 ***************
 Handling Errors
@@ -189,7 +187,6 @@ example::
 	{
 		$error = $db->error(); // Has keys 'code' and 'message'
 	}
-
 
 ****************
 Prepared Queries

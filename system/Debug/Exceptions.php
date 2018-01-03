@@ -36,7 +36,6 @@
  * @filesource
  */
 use Config\Services;
-use Psr\Log\LoggerAwareTrait;
 
 require __DIR__.'/CustomExceptions.php';
 
@@ -70,7 +69,7 @@ class Exceptions
 	/**
 	 * Constructor.
 	 *
-	 * @param \Config\App $config
+	 * @param \Config\Exceptions $config
 	 */
 	public function __construct(\Config\Exceptions $config)
 	{

@@ -234,7 +234,6 @@ Returns the first row in the result set. This is best used in combination with t
 	$user = $userModel->where('deleted', 0)
 	                  ->first();
 
-
 **withDeleted()**
 
 If $useSoftDeletes is true, then the find* methods will not return any rows where 'deleted = 1'. To
@@ -254,7 +253,7 @@ Whereas withDeleted() will return both deleted and not-deleted rows, this method
 the next find* methods to return only soft deleted rows::
 
 	$deletedUsers = $userModel->onlyDeleted()
-							  ->findAll();
+	                          ->findAll();
 
 Saving Data
 -----------
@@ -496,7 +495,6 @@ very elegant use::
 
 			$user_name = $userModel->escape($name);
 
-
 Runtime Return Type Changes
 ----------------------------
 
@@ -523,7 +521,6 @@ Returns data from the next find*() method as standard objects or custom class in
 	// Return as custom class instances
 	$users = $userModel->asObject('User')->findWhere('status', 'active');
 
-
 Processing Large Amounts of Data
 --------------------------------
 
@@ -540,41 +537,6 @@ This is best used during cronjobs, data exports, or other large tasks.
 		// do something.
 		// $data is a single row of data.
 	});
-
-Obfuscating IDs in URLs
------------------------
-
-Instead of displaying the resource's ID in the URL (i.e. /users/123), the model provides a simple
-way to obfuscate the ID. This provides some protection against attackers simply incrementing IDs in the
-URL to do bad things to your data.
-
-This is not a valid security use, but another simple layer of protection. Determined attackers could very easily
-determine the actual ID.
-
-The data is not stored in the database at any time, it is simply used to disguise the ID. When creating a URL
-you can use the **encodeID()** method to get the hashed ID.
-::
-
-	// Creates something like: http://exmample.com/users/MTIz
-	$url = '/users/'. $model->encodeID($user->id);
-
-When you need to grab the item in your controller, you can use the **findByHashedID()** method instead of the
-**find()** method.
-::
-
-	public function show($hashedID)
-	{
-		$user = $this->model->findByHashedID($hashedID);
-	}
-
-If you ever need to decode the hash, you may do so with the **decodeID()** method.
-::
-
-	$hash  = $model->encodeID(123);
-	$check = $model->decodeID($hash);
-
-.. note:: While the name is "hashed id", this is not actually a hashed variable, but that term has become
-		common in many circles to represent the encoding of an ID into a short, unique, identifier.
 
 Model Events
 ============
